@@ -5,74 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Encounter Simulation</title>
 <style>
-  body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-  }
-  #iconDisplay {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      margin: 20px auto;
-      border: 1px solid #ccc;
-  }
-  .icon {
-      width: 32px;
-      height: 32px;
-      position: absolute;
-      top: 0;
-      left: 0;
-  }
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+    }
+    .icon-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .icon {
+        width: 64px;
+        height: 64px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s;
+    }
+    .icon:hover {
+        border-color: #0078D4;
+    }
+    #iconDisplay {
+        width: 100px;
+        height: 100px;
+    }
 </style>
 </head>
 <body>
 
-<h2>Encounter Simulation</h2>
-<label for="timerInput">Set Timer Duration (seconds):</label>
-<input type="number" id="timerInput" min="1" max="15" value="5">
-<button onclick="startEncounter()">Start Encounter</button>
-
 <div id="iconDisplay"></div>
-<div id="logOutput"></div>
+<h3>Press F11 for fullscreen</h3>
+<div class="icon-grid">
+    <img src="icons/ability_ambush.jpg" class="icon" alt="Ability Ambush" onclick="activateIcon('ability_ambush')">
+    <img src="icons/ability_rogue_sprint.jpg" class="icon" alt="Ability Rogue Sprint" onclick="activateIcon('ability_rogue_sprint')">
+    <img src="icons/inv_hammer_02.jpg" class="icon" alt="Hammer" onclick="activateIcon('inv_hammer')">
+    <img src="icons/inv_misc_food_07.jpg" class="icon" alt="Cheese" onclick="activateIcon('inv_misc_food_07')">
+    <img src="icons/inv_misc_food_71.jpg" class="icon" alt="Meat" onclick="activateIcon('inv_misc_food_71')">
+    <img src="icons/inv_misc_gem_pearl_04.jpg" class="icon" alt="Yellow Pearl" onclick="activateIcon('inv_misc_gem_pearl_04')">
+    <img src="icons/inv_misc_gem_pearl_05.jpg" class="icon" alt="Blue Pearl" onclick="activateIcon('inv_misc_gem_pearl_05')">
+    <img src="icons/inv_sword_36.jpg" class="icon" alt="Sword" onclick="activateIcon('inv_sword')">
+    <img src="icons/spell_frost_frostnova.jpg" class="icon" alt="Frost Nova" onclick="activateIcon('spell_frost_frostnova')">
+    <img src="icons/spell_nature_abolishmagic.jpg" class="icon" alt="Abolish Magic" onclick="activateIcon('spell_nature_abolishmagic')">
+    <img src="icons/spell_shadow_possession.jpg" class="icon" alt="Shadow Possession" onclick="activateIcon('spell_shadow_possession')">
+</div>
 
 <script>
 const icons = {
-    cheese: "https://via.placeholder.com/32?text=🧀",
-    sword: "https://via.placeholder.com/32?text=🗡️",
-    meat: "https://via.placeholder.com/32?text=🥩",
+    ability_ambush: "icons/ability_ambush.jpg",
+    ability_rogue_sprint: "icons/ability_rogue_sprint.jpg",
+    inv_hammer: "icons/inv_hammer_02.jpg",
+    inv_misc_food_07: "icons/inv_misc_food_07.jpg",
+    inv_misc_food_71: "icons/inv_misc_food_71.jpg",
+    inv_misc_gem_pearl_04: "icons/inv_misc_gem_pearl_04.jpg",
+    inv_misc_gem_pearl_05: "icons/inv_misc_gem_pearl_05.jpg",
+    inv_sword: "icons/inv_sword_36.jpg",
+    spell_frost_frostnova: "icons/spell_frost_frostnova.jpg",
+    spell_nature_abolishmagic: "icons/spell_nature_abolishmagic.jpg",
+    spell_shadow_possession: "icons/spell_shadow_possession.jpg",
 };
 
-function startEncounter() {
-    const timer = parseInt(document.getElementById("timerInput").value);
+function activateIcon(iconType) {
     const iconDisplay = document.getElementById("iconDisplay");
-    const logOutput = document.getElementById("logOutput");
     
-    // Clear previous icons and logs
-    iconDisplay.innerHTML = "";
-    logOutput.innerHTML = "";
-
-    let iconType;
-    if (timer <= 6) {
-        iconType = "cheese";
-    } else if (timer <= 10) {
-        iconType = "sword";
-    } else {
-        iconType = "meat";
-    }
+    iconDisplay.innerHTML = `<img src="${icons[iconType]}" class="icon" style="width:100%; height:100%">`;
     
-    // Display icon
-    const iconImg = document.createElement("img");
-    iconImg.src = icons[iconType];
-    iconImg.className = "icon";
-    iconDisplay.appendChild(iconImg);
-
-    // Log the event
-    logOutput.innerHTML = `<p>${timer}-second pull timer started with icon: ${iconType}</p>`;
-    
-    // Hide icon after 1 second
     setTimeout(() => {
-        iconImg.style.display = "none";
+        iconDisplay.innerHTML = "";
     }, 1000);
 }
 </script>
