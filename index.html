@@ -18,8 +18,8 @@
       border: 1px solid #ccc;
   }
   .icon {
-      width: 32px;
-      height: 32px;
+      width: 64px;
+      height: 64px;
       position: absolute;
       top: 0;
       left: 0;
@@ -38,9 +38,17 @@
 
 <script>
 const icons = {
-    cheese: "https://via.placeholder.com/32?text=🧀",
-    sword: "https://via.placeholder.com/32?text=🗡️",
-    meat: "https://via.placeholder.com/32?text=🥩",
+    ability_ambush: "icons/ability_ambush.jpg",
+    ability_rogue_sprint: "icons/ability_rogue_sprint.jpg",
+    inv_hammer: "icons/inv_hammer_02.jpg",
+    inv_misc_food_07: "icons/inv_misc_food_07.jpg",
+    inv_misc_food_71: "icons/inv_misc_food_71.jpg",
+    inv_misc_gem_pearl_04: "icons/inv_misc_gem_pearl_04.jpg",
+    inv_misc_gem_pearl_05: "icons/inv_misc_gem_pearl_05.jpg",
+    inv_sword: "icons/inv_sword_36.jpg",
+    spell_frost_frostnova: "icons/spell_frost_frostnova.jpg",
+    spell_nature_abolishmagic: "icons/spell_nature_abolishmagic.jpg",
+    spell_shadow_possession: "icons/spell_shadow_possession.jpg",
 };
 
 function startEncounter() {
@@ -52,16 +60,21 @@ function startEncounter() {
     iconDisplay.innerHTML = "";
     logOutput.innerHTML = "";
 
+    // Determine icon type based on timer
     let iconType;
-    if (timer <= 6) {
-        iconType = "cheese";
-    } else if (timer <= 10) {
-        iconType = "sword";
+    if (timer <= 3) {
+        iconType = "inv_misc_food_07"; // Cheese icon replacement
+    } else if (timer <= 6) {
+        iconType = "inv_sword"; // Sword icon replacement
+    } else if (timer <= 9) {
+        iconType = "inv_misc_food_71"; // Meat icon replacement
+    } else if (timer <= 12) {
+        iconType = "inv_hammer"; // Hammer icon replacement
     } else {
-        iconType = "meat";
+        iconType = "ability_rogue_sprint"; // Sprint icon replacement
     }
     
-    // Display icon
+    // Display selected icon
     const iconImg = document.createElement("img");
     iconImg.src = icons[iconType];
     iconImg.className = "icon";
