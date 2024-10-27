@@ -5,36 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Encounter Simulation</title>
 <style>
-  body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-  }
-  #iconDisplay {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      margin: 20px auto;
-      border: 1px solid #ccc;
-  }
-  .icon {
-      width: 64px;
-      height: 64px;
-      position: absolute;
-      top: 0;
-      left: 0;
-  }
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+    }
+    .icon-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .icon {
+        width: 64px;
+        height: 64px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.3s;
+    }
+    .icon:hover {
+        border-color: #0078D4; /* Highlight color on hover */
+    }
+    #iconDisplay {
+        margin: 20px auto;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+    }
 </style>
 </head>
 <body>
 
-<h2>Encounter Simulation</h2>
-<label for="timerInput">Set Timer Duration (seconds):</label>
-<input type="number" id="timerInput" min="1" max="15" value="5">
-<button onclick="startEncounter()">Start Encounter</button>
+<h2>Click an Icon to Activate</h2>
 
 <div id="iconDisplay"></div>
 <div id="logOutput"></div>
+
+<div class="icon-grid">
+    <!-- Each image is clickable and will activate the icon in the display area -->
+    <img src="icons/ability_ambush.jpg" class="icon" alt="Ability Ambush" onclick="activateIcon('ability_ambush')">
+    <img src="icons/ability_rogue_sprint.jpg" class="icon" alt="Ability Rogue Sprint" onclick="activateIcon('ability_rogue_sprint')">
+    <img src="icons/inv_hammer_02.jpg" class="icon" alt="Hammer" onclick="activateIcon('inv_hammer')">
+    <img src="icons/inv_misc_food_07.jpg" class="icon" alt="Cheese" onclick="activateIcon('inv_misc_food_07')">
+    <img src="icons/inv_misc_food_71.jpg" class="icon" alt="Meat" onclick="activateIcon('inv_misc_food_71')">
+    <img src="icons/inv_misc_gem_pearl_04.jpg" class="icon" alt="Yellow Pearl" onclick="activateIcon('inv_misc_gem_pearl_04')">
+    <img src="icons/inv_misc_gem_pearl_05.jpg" class="icon" alt="Blue Pearl" onclick="activateIcon('inv_misc_gem_pearl_05')">
+    <img src="icons/inv_sword_36.jpg" class="icon" alt="Sword" onclick="activateIcon('inv_sword')">
+    <img src="icons/spell_frost_frostnova.jpg" class="icon" alt="Frost Nova" onclick="activateIcon('spell_frost_frostnova')">
+    <img src="icons/spell_nature_abolishmagic.jpg" class="icon" alt="Abolish Magic" onclick="activateIcon('spell_nature_abolishmagic')">
+    <img src="icons/spell_shadow_possession.jpg" class="icon" alt="Shadow Possession" onclick="activateIcon('spell_shadow_possession')">
+</div>
 
 <script>
 const icons = {
@@ -51,41 +72,19 @@ const icons = {
     spell_shadow_possession: "icons/spell_shadow_possession.jpg",
 };
 
-function startEncounter() {
-    const timer = parseInt(document.getElementById("timerInput").value);
+function activateIcon(iconType) {
     const iconDisplay = document.getElementById("iconDisplay");
     const logOutput = document.getElementById("logOutput");
     
-    // Clear previous icons and logs
-    iconDisplay.innerHTML = "";
-    logOutput.innerHTML = "";
-
-    // Determine icon type based on timer
-    let iconType;
-    if (timer <= 3) {
-        iconType = "inv_misc_food_07"; // Cheese icon replacement
-    } else if (timer <= 6) {
-        iconType = "inv_sword"; // Sword icon replacement
-    } else if (timer <= 9) {
-        iconType = "inv_misc_food_71"; // Meat icon replacement
-    } else if (timer <= 12) {
-        iconType = "inv_hammer"; // Hammer icon replacement
-    } else {
-        iconType = "ability_rogue_sprint"; // Sprint icon replacement
-    }
+    // Display selected icon in the icon display area
+    iconDisplay.innerHTML = `<img src="${icons[iconType]}" class="icon" style="width:100%; height:100%">`;
     
-    // Display selected icon
-    const iconImg = document.createElement("img");
-    iconImg.src = icons[iconType];
-    iconImg.className = "icon";
-    iconDisplay.appendChild(iconImg);
-
     // Log the event
-    logOutput.innerHTML = `<p>${timer}-second pull timer started with icon: ${iconType}</p>`;
+    logOutput.innerHTML = `<p>Activated icon: ${iconType}</p>`;
     
     // Hide icon after 1 second
     setTimeout(() => {
-        iconImg.style.display = "none";
+        iconDisplay.innerHTML = "";
     }, 1000);
 }
 </script>
