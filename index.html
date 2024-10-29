@@ -49,6 +49,14 @@
     <img src="icons/spell_frost_frostnova.jpg" class="icon" alt="Frost Nova" onclick="activateIcon('spell_frost_frostnova')">
     <img src="icons/spell_nature_abolishmagic.jpg" class="icon" alt="Abolish Magic" onclick="activateIcon('spell_nature_abolishmagic')">
     <img src="icons/spell_shadow_possession.jpg" class="icon" alt="Shadow Possession" onclick="activateIcon('spell_shadow_possession')">
+    <div>
+        <img src="icons/spell_shadow_possession.jpg" class="icon" alt="Cycle Icon 1" onclick="cycleIcons(['spell_shadow_possession', 'inv_misc_food_71', 'ability_ambush'])">
+        <p>BWL sim</p>
+    </div>
+    <div>
+        <img src="icons/spell_frost_frostnova.jpg" class="icon" alt="Cycle Icon 2" onclick="cycleIcons(['spell_frost_frostnova', 'inv_misc_gem_pearl_04', 'ability_rogue_sprint'])">
+        <p>Special Cycle 2</p>
+    </div>
 </div>
 
 <script>
@@ -70,10 +78,30 @@ function activateIcon(iconType) {
     const iconDisplay = document.getElementById("iconDisplay");
     
     iconDisplay.innerHTML = `<img src="${icons[iconType]}" class="icon" style="width:100%; height:100%">`;
-    
+
     setTimeout(() => {
         iconDisplay.innerHTML = "";
-    }, 2000);
+    }, 1500);
+}
+
+// Cycle through a set of icons and stop after the last one
+function cycleIcons(iconList) {
+    const iconDisplay = document.getElementById("iconDisplay");
+    let index = 0;
+
+    // Start cycling through images every 1.5 seconds
+    const cycleInterval = setInterval(() => {
+        if (index < iconList.length) {
+            const iconType = iconList[index];
+            iconDisplay.innerHTML = `<img src="${icons[iconType]}" class="icon" style="width:100%; height:100%">`;
+            index++;
+        } else {
+            clearInterval(cycleInterval); // Stop cycling after the last icon
+            setTimeout(() => {
+                iconDisplay.innerHTML = ""; // Clear display after last image
+            }, 1500);
+        }
+    }, 1500);
 }
 </script>
 
